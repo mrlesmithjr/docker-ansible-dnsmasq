@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 ansible-playbook -i "localhost," -c local /docker-entrypoint.yml
 

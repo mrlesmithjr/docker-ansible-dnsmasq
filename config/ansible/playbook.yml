@@ -3,45 +3,29 @@
   become: true
   connection: local
   vars:
-    gosu_ver: '1.9'
   roles:
   tasks:
-    - name: Updating Apt-Cache
-      apt:
+    - name: Updating Apk Cache
+      apk:
         update_cache: yes
 
-    - name: Installing apt-transport-https
-      apt:
-        name: "apt-transport-https"
-        state: "present"
-
-    - name: Installing ca-certificates
-      apt:
-        name: "ca-certificates"
-        state: "latest"
-
-    - name: Installing dumb-init
-      apt:
-        deb: "https://github.com/Yelp/dumb-init/releases/download/v1.0.2/dumb-init_1.0.2_amd64.deb"
-
-    - name: Installing gosu
-      get_url:
-        url: "https://github.com/tianon/gosu/releases/download/{{ gosu_ver }}/gosu-amd64"
-        dest: "/usr/local/bin/gosu"
-        mode: 0755
-
     - name: Installing Pre-Reqs
-      apt:
+      apk:
         name: "{{ item }}"
         state: "present"
-        install_recommends: no
       with_items:
-        - 'cron'
         - 'rsyslog'
         - 'supervisor'
 
     - name: Installing DNSMasq
-      apt:
+      apk:
         name: "dnsmasq"
         state: "present"
-        install_recommends: no
+
+    - name: Creating Folders
+      file:
+        path: "{{ item }}"
+        state: "directory"
+      with_items:
+        - '/etc/supervisor.d'
+        - '/etc/dnsmasq.d'

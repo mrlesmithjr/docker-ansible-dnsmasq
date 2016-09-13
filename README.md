@@ -1,11 +1,11 @@
 Repo Info
 =========
-Build [Docker] image for [DNSMasq]
+Build [Docker] image for [DNSMasq] running on Alpine Linux
 
 Consuming
 ---------
 ```
-docker up -d -p 53:53 -p 53:53/udp mrlesmithjr/dnsmasq
+docker up -d -p 53:53 -p 53:53/udp mrlesmithjr/dnsmasq:alpine
 ```
 
 Configuring
