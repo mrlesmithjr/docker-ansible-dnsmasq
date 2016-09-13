@@ -3,5 +3,11 @@
   become: true
   connection: local
   vars:
+  vars_files:
+    - '/config/ansible/dnsmasq_vars.yml'
   roles:
   tasks:
+    - name: Configuring DNSMasq
+      template:
+        src: "/config/ansible/dnsmasq.conf.j2"
+        dest: "/etc/dnsmasq.conf"
